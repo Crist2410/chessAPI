@@ -39,6 +39,12 @@ public sealed class clsPlayerRepository<TI, TC> : clsDataAccess<clsPlayerEntityM
         throw new NotImplementedException();
     }
 
+    public async Task<IEnumerable<clsPlayerEntityModel<TI, TC>>> getPlayers()
+    {
+        var p = new DynamicParameters();
+        return await getALL(p).ConfigureAwait(false);
+    }
+
     public Task<IEnumerable<clsPlayerEntityModel<TI, TC>>> getPlayersByGame(TI gameId)
     {
         throw new NotImplementedException();
@@ -47,6 +53,17 @@ public sealed class clsPlayerRepository<TI, TC> : clsDataAccess<clsPlayerEntityM
     public Task updatePlayer(clsPlayer<TI> updatedPlayer)
     {
         throw new NotImplementedException();
+        //     var p = new DynamicParameters();
+        //     p.Add("EMAIL", player.email);
+        //     return await setRow<TI>(p).ConfigureAwait(false); 
+    }
+
+    public async Task<TI> updatePlayers(int id, string email)
+    {
+        var p = new DynamicParameters();
+        p.Add("ID", id);
+        p.Add("EMAIL", email);
+        return await setRow<TI>(p).ConfigureAwait(false); 
     }
 
     protected override DynamicParameters fieldsAsParams(clsPlayerEntityModel<TI, TC> entity)
